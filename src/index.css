@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DSLR Settings Guide Modern Theme */
+
+@layer base {
+  :root {
+    --background: 210 11% 15%;
+    --foreground: 0 0% 95%;
+
+    --card: 210 11% 18%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 210 11% 18%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 14 100% 57%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 11% 21%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 210 11% 21%;
+    --muted-foreground: 0 0% 65%;
+
+    --accent: 0 84% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 11% 25%;
+    --input: 210 11% 25%;
+    --ring: 14 100% 57%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 210 11% 15%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 14 100% 57%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 11% 21%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 210 11% 25%;
+    --sidebar-ring: 14 100% 57%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-dslr-orange to-dslr-red bg-clip-text text-transparent;
+  }
+  
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(255, 87, 34, 0.3);
+  }
+  
+  .focus-glow {
+    box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.3), 0 0 20px rgba(255, 87, 34, 0.1);
+    animation: focus-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes focus-pulse {
+    0%, 100% { 
+      box-shadow: 0 0 0 2px rgba(255, 87, 34, 0.3), 0 0 20px rgba(255, 87, 34, 0.1);
+    }
+    50% { 
+      box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.5), 0 0 30px rgba(255, 87, 34, 0.2);
+    }
+  }
+  
+  .camera-grid {
+    background-image: 
+      linear-gradient(rgba(255, 87, 34, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 87, 34, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .hero-gradient {
+    background: linear-gradient(135deg, rgba(255, 87, 34, 0.05) 0%, rgba(244, 67, 54, 0.03) 100%);
+  }
+  
+  /* DSLR Shutter Button Effect */
+  .shutter-button {
+    position: relative;
+    background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%);
+    border: 2px solid #B71C1C;
+    border-radius: 50px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .shutter-button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+  }
+  
+  .shutter-button:hover:before {
+    left: 100%;
+  }
+  
+  .shutter-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(244, 67, 54, 0.4);
+  }
+  
+  .shutter-button:active {
+    transform: scale(0.98);
+    animation: shutter-click 0.15s ease-out;
+  }
+  
+  @keyframes shutter-click {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(0.98); }
+  }
+  
+  /* Focus Indicator */
+  .focus-indicator {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .focus-indicator:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #FF5722;
+    border-radius: 4px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: focus-appear 0.5s ease-out;
+  }
+  
+  .focus-indicator:hover:before {
+    opacity: 1;
+    animation: focus-lock 1s ease-out;
+  }
+  
+  @keyframes focus-appear {
+    0% { 
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+    100% { 
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  @keyframes focus-lock {
+    0% { 
+      border-color: #FF5722;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    50% { 
+      border-color: #4CAF50;
+      transform: translate(-50%, -50%) scale(0.9);
+    }
+    100% { 
+      border-color: #4CAF50;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  /* Glassmorphism Card */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Pixel Grain Texture */
+  .pixel-grain {
+    position: relative;
+  }
+  
+  .pixel-grain:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 1px 1px, rgba(255, 87, 34, 0.02) 1px, transparent 0);
+    background-size: 4px 4px;
+    pointer-events: none;
+  }
+  
+  /* Flash Effect */
+  @keyframes flash {
+    0% { opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0; }
+  }
+  
+  .flash-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .flash-effect:hover:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: flash 0.3s ease-out;
+  }
+  
+  /* Settings Display Panel */
+  .settings-panel {
+    background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
+    border: 2px solid #444;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+  }
+  
+  .settings-display {
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+  }
+}
